@@ -1,3 +1,13 @@
 .buttontime {
     display: flex;
+
+    width: 4em;
+}
+
+.buttontime-noselected {
+
+}
+
+.buttontime-selected {
+    background: gray;
 }
