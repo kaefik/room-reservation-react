@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './panelweekday.css'
 import ButtonMonth from '../ButtonMonth/buttonmonth';
+import ButtonWeekDay from '../ButtonWeekDay/buttonweekday'
 
 
 var classNames = require('classnames');
@@ -10,7 +11,10 @@ class PanelWeekDay extends Component {
     state = {  }
     render() { 
         return ( 
-            <ButtonMonth month="2"/>
+            <div>
+                <ButtonMonth month="2"/>
+                <ButtonWeekDay />
+            </div>
          );
     }
 }
