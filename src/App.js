@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import ButtonTime from './components/ButtonTime/buttontime';
 import ButtonMonth from './components/ButtonMonth/buttonmonth'
+import PanelWeekDay from './components/PanelWeekDay/panelweekday';
 
 class App extends Component {
   render() {
@@ -16,12 +17,11 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          <ButtonTime hour="9" minute="00"/>
-          <ButtonTime hour="10" minute="00"/>
-          <ButtonTime hour="11" minute="00"/>
-        </p>
-        <p>
-          <ButtonMonth />
+          <PanelWeekDay />
+           
+          
+          
+
         </p>
         
       </div>

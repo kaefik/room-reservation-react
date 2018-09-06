@@ -6,7 +6,7 @@ var moment = require('moment');
 
 class ButtonMonth extends Component {
     state = { 
-        month: 0  // нумерация месяцев с 0
+        month: this.props.month===undefined?0:parseInt(this.props.month)  // нумерация месяцев с 0
     }
 
     handleBackMonth = event => {
@@ -26,10 +26,9 @@ class ButtonMonth extends Component {
         const currentMonth = this.state.month;
         return (  
             <div className="buttonmonth">
-                <div onClick={this.handleBackMonth}>Back</div>
-                <div>{moment().month(currentMonth).format("MMMM")}</div>
-                <div onClick={this.handleForwardMonth}>Forward</div>
-                {console.info(this.state.month)}
+                <div onClick={this.handleBackMonth}>&#9668;</div>
+                <div className="buttonmonth-name">{moment().month(currentMonth).format("MMMM")}</div>
+                <div onClick={this.handleForwardMonth}>&#9658;</div>
             </div>
         );
     }

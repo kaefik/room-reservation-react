@@ -1,3 +1,7 @@
 .buttonmonth {
     display: flex;
 }
+
+.buttonmonth-name {
+    min-width: 6em;
+}
