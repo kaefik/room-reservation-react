@@ -1,3 +1,11 @@
 .buttonweekday {
     display: flex;
 }
+
+.buttonweekday-day {
+    margin: 0 5px 0 5px;
+}
+
+.buttonweekday-arrow {
+    margin: 0 5px 0 5px;
+}
