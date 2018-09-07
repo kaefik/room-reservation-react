@@ -35,9 +35,9 @@ class ButtonWeekDay extends Component {
     super(props);
     this.state = {
       days: [],
-      week: 0,
-      month: 8,
-      year: 2018
+      week: this.props.week === undefined ? 0 : parseInt(this.props.week),
+      month: this.props.month === undefined ? 1 : parseInt(this.props.month),
+      year: this.props.year === undefined ? 2018 : parseInt(this.props.year)
     };
 
     this.state.days = generateMonth(this.state.month, this.state.year);
@@ -57,9 +57,10 @@ class ButtonWeekDay extends Component {
   handleBackMonth = event => {
     var currentWeek = this.state.week - 1;
 
+    currentWeek = currentWeek<0?0:currentWeek;
     currentWeek = this.checkEmpltyMondayFriday(this.state.days[currentWeek])?currentWeek+1:currentWeek;
 
-    this.setState({week: currentWeek<0?0:currentWeek});
+    this.setState({week: currentWeek});
   }
 
   handleForwardMonth = event => {

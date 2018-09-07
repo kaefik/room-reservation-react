@@ -4,6 +4,7 @@
 
 .buttonweekday-day {
     margin: 0 5px 0 5px;
+    min-width: 8em;
 }
 
 .buttonweekday-arrow {
