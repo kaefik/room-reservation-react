@@ -5,25 +5,24 @@ var classNames = require("classnames");
 var moment = require("moment");
 
 class ButtonMonth extends Component {
-  state = {
-    month: this.props.month === undefined ? 0 : parseInt(this.props.month), // нумерация месяцев с 0
-    year: this.props.month === undefined ? 2018 : parseInt(this.props.year) // нумерация месяцев с 0
-  };
+  /*
+     this.props.onChangeMonth - возращает родителю текущий месяц
+    */
 
   handleBackMonth = event => {
-    var currentMonth = this.state.month - 1;
-
-    this.setState({ month: currentMonth < 0 ? 0 : currentMonth });
+    let currentMonth = this.props.month - 1;
+    currentMonth = currentMonth < 0 ? 0 : currentMonth;
+    this.props.onChangeMonth(currentMonth);
   };
 
   handleForwardMonth = event => {
-    var currentMonth = this.state.month + 1;
-
-    this.setState({ month: currentMonth > 11 ? 11 : currentMonth });
+    let currentMonth = this.props.month + 1;
+    currentMonth = currentMonth > 11 ? 11 : currentMonth;
+    this.props.onChangeMonth(currentMonth);
   };
 
   render() {
-    const currentMonth = this.state.month;
+    const currentMonth = this.props.month;
     return (
       <div className="buttonmonth">
         <div onClick={this.handleBackMonth}>&#9668;</div>
