@@ -6,7 +6,6 @@ import {
   checkEmpltyMondayFriday
 } from "../ButtonWeekDay/buttonweekday";
 
-var classNames = require("classnames");
 var moment = require("moment");
 
 const generateMonth = (month, year) => {
@@ -38,9 +37,11 @@ class PanelWeekDay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      week: this.props.week === undefined ? 0 : parseInt(this.props.week),
-      month: this.props.month === undefined ? 0 : parseInt(this.props.month), // 0 -> January, 1 ->Febriary ...
-      year: this.props.year === undefined ? 2018 : parseInt(this.props.year),
+      week: this.props.week === undefined ? 0 : parseInt(this.props.week, 10),
+      month:
+        this.props.month === undefined ? 0 : parseInt(this.props.month, 10), // 0 -> January, 1 ->Febriary ...
+      year:
+        this.props.year === undefined ? 2018 : parseInt(this.props.year, 10),
       days: []
     };
     this.state.days = generateMonth(this.state.month + 1, this.state.year);

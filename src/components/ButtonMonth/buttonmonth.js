@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./buttonmonth.css";
 
-var classNames = require("classnames");
 var moment = require("moment");
 
 class ButtonMonth extends Component {

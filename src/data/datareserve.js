@@ -1,10 +1,14 @@
 var moment = require("moment");
 
 class DataReserve {
-  constructor(date, time) {
+  constructor(date, time, descr) {
     this.date = date; // дата бронирования формат даты DD-MM-YYYY
     this.time = time; // время бронирования, например 09:00
-    this.description = "";
+    if (descr === undefined) {
+      this.description = "";
+    } else {
+      this.description = descr;
+    }
   }
 
   get desc() {
@@ -34,7 +38,7 @@ class DataReserve {
 
   get hour() {
     const hhmm = this.time.split(":");
-    if (hhmm.length != 2) {
+    if (hhmm.length !== 2) {
       return undefined;
     }
     return hhmm[0];
@@ -42,7 +46,7 @@ class DataReserve {
 
   get minutes() {
     const hhmm = this.time.split(":");
-    if (hhmm.length != 2) {
+    if (hhmm.length !== 2) {
       return undefined;
     }
     return hhmm[1];

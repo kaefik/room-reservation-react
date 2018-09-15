@@ -29,11 +29,11 @@ let dataRoom2 = tstDataReserveRoom2.map(
 let dataRoomReservation = [
   {
     nameroom: "комната 1",
-    reserve: tstDataReserveRoom1
+    reserve: dataRoom1
   },
   {
     nameroom: "комната 2",
-    reserve: tstDataReserveRoom2
+    reserve: dataRoom2
   }
 ];
 

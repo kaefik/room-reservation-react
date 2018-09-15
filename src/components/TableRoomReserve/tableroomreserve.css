@@ -1,0 +1,34 @@
+.table-room-reserve {
+    border: 1px solid blue;
+  
+  }
+  
+  .table-room-reserve-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .table-room-reserve-panelweekday {
+    min-width: 1000px;
+  }
+  
+  .room {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  
+  }
+  
+  .room-caption {
+  
+  }
+  
+  .room-time {
+    display: flex;
+    justify-content: space-around;
+  
+    margin: 10px;
+  
+    min-width: 800px;
+  }

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./buttonweekday.css";
 
-var classNames = require("classnames");
-var moment = require("moment");
-
 const checkEmpltyMondayFriday = function(weekday) {
   /* true - если ПН до ПТ пустые дни */
   if (weekday[0] + weekday[1] + weekday[2] + weekday[3] + weekday[4] === 0) {
