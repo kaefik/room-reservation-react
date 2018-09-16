@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import "./panelweekday.css";
 import ButtonMonth from "../ButtonMonth/buttonmonth";
-import {
-  ButtonWeekDay,
-  checkEmpltyMondayFriday
-} from "../ButtonWeekDay/buttonweekday";
+import { ButtonWeekDay } from "../ButtonWeekDay/buttonweekday";
 
 var moment = require("moment");
 
