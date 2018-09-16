@@ -5,7 +5,8 @@ var classNames = require("classnames");
 
 class ButtonTime extends Component {
   handleClickSelect = event => {
-    this.setState({ selected: true });
+    const { hour, minute } = this.props;
+    this.props.onClick(hour, minute, true);
   };
 
   render() {

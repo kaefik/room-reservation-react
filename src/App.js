@@ -10,7 +10,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Бронирование переговорок</h1>
         </header>
-        <TableRoomReserve month="8" />
+        <TableRoomReserve month="9" />
       </div>
     );
   }

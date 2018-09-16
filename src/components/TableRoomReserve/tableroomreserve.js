@@ -66,20 +66,28 @@ class TableRoomReserve extends Component {
           <div className="room-caption">{item.nameroom}</div>
           <div className="room-time">
             {selectedWeekDays[index].map(
-              (item, index) =>
+              (item2, index2) =>
                 this.state.days[this.state.week][index] !== 0 ? (
                   <PanelTime
-                    selected={item}
-                    key={
-                      this.state.days[this.state.week][index] +
+                    room={item.nameroom}
+                    selected={item2}
+                    key={(
+                      this.state.days[this.state.week][index2] +
                       "-" +
                       this.state.month +
                       "-" +
                       this.state.year
-                    }
+                    ).toString()}
+                    id={(
+                      this.state.days[this.state.week][index2] +
+                      "-" +
+                      this.state.month +
+                      "-" +
+                      this.state.year
+                    ).toString()}
                   />
                 ) : (
-                  <div />
+                  <div /> // TODO: сделать чтобы был пустой блок в полный размер обычного блока
                 )
             )}
           </div>
