@@ -37,47 +37,37 @@ class PanelWeekDay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      week: this.props.week === undefined ? 0 : parseInt(this.props.week, 10),
-      month:
-        this.props.month === undefined ? 0 : parseInt(this.props.month, 10), // 0 -> January, 1 ->Febriary ...
-      year:
-        this.props.year === undefined ? 2018 : parseInt(this.props.year, 10),
-      days: []
+      days: generateMonth(this.props.month + 1, this.props.year)
     };
-    this.state.days = generateMonth(this.state.month + 1, this.state.year);
-
-    this.state.week = checkEmpltyMondayFriday(this.state.days[this.state.week])
-      ? this.state.week + 1
-      : this.state.week;
   }
 
   onChangeMonth = newMonth => {
-    this.setState({ month: newMonth });
+    this.setState({
+      days: generateMonth(newMonth + 1, this.props.year)
+    });
 
-    this.setState({
-      days: generateMonth(this.state.month + 1, this.state.year)
-    });
-    this.setState({
-      week: checkEmpltyMondayFriday(this.state.days[0]) ? 1 : 0
-    });
+    let newWeek = checkEmpltyMondayFriday(this.state.days[0]) ? 1 : 0;
+
+    this.props.onChange(newMonth, this.props.year, newWeek);
   };
 
   onChangeWeek = newWeek => {
-    this.setState({ week: newWeek });
+    //this.setState({ week: newWeek });
+    this.props.onChange(this.props.month, this.props.year, newWeek);
   };
 
   render() {
-    console.info("state = ", this.state);
+    console.info("STATE PanelWeekDay = ", this.state);
     return (
       <div className="panelweekday">
         <ButtonMonth
-          month={this.state.month}
+          month={this.props.month}
           onChangeMonth={this.onChangeMonth}
         />
         <ButtonWeekDay
-          month={this.state.month}
-          year={this.state.year}
-          week={this.state.week}
+          month={this.props.month}
+          year={this.props.year}
+          week={this.props.week}
           days={this.state.days}
           onChangeWeek={this.onChangeWeek}
         />
