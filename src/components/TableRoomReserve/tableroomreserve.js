@@ -4,8 +4,13 @@ import { PanelWeekDay, generateMonth } from "../PanelWeekDay/panelweekday";
 import PanelTime from "../PanelTime/paneltime";
 
 import "./tableroomreserve.css";
+import { checkEmpltyMondayFriday } from "../ButtonWeekDay/buttonweekday";
 
-var dataReserverRooms = require("../../data/test_data");
+//var dataReserverRooms = require("../../data/test_data");
+import {
+  dataRoomReservation,
+  testSelectedWeekDays
+} from "../../data/test_data";
 
 class TableRoomReserve extends Component {
   constructor(props) {
@@ -18,41 +23,71 @@ class TableRoomReserve extends Component {
       days: []
     };
     this.state.days = generateMonth(this.state.month + 1, this.state.year);
-    this.dataReserverRooms = dataReserverRooms;
+    this.dataReserverRooms = dataRoomReservation;
+    this.state.week = checkEmpltyMondayFriday(this.state.days[0]) ? 1 : 0;
   }
 
   onChangeMonthWeek = (newmonth, newyear, newweek) => {
     let flag = false;
+    let flagModifyMonth = false;
+    let newDays = this.state.days;
+
     if (this.state.month !== newmonth) {
       this.setState({ month: newmonth });
       flag = true;
+      flagModifyMonth = true;
     }
+
     if (this.state.year !== newyear) {
       this.setState({ year: newyear });
       flag = true;
     }
-    if (this.state.week !== newweek) {
-      this.setState({ week: newweek });
-      flag = true;
-    }
+
     if (flag) {
-      this.setState({ days: generateMonth(newmonth + 1, newyear) });
+      newDays = generateMonth(newmonth + 1, newyear);
+      this.setState({ days: newDays });
+    }
+
+    if (flagModifyMonth) {
+      newweek = checkEmpltyMondayFriday(newDays[0]) ? 1 : 0;
+      this.setState({ week: newweek });
+    } else {
+      if (this.state.week !== newweek) {
+        this.setState({ week: newweek });
+      }
     }
   };
 
   render() {
-    const dataReserverRoomsRender = dataReserverRooms.map((item, index) => (
-      <div className="room" key={index}>
-        <div className="room-caption">{item.nameroom}</div>
-        <div className="room-time">
-          <PanelTime />
-          <PanelTime />
-          <PanelTime />
-          <PanelTime />
-          <PanelTime />
+    const selectedWeekDays = testSelectedWeekDays; // TODO: сгенирировать данную структуру используя this.dataReserverRooms
+    const dataReserverRoomsRender = this.dataReserverRooms.map(
+      (item, index) => (
+        <div className="room" key={index}>
+          <div className="room-caption">{item.nameroom}</div>
+          <div className="room-time">
+            {selectedWeekDays[index].map(
+              (item, index) =>
+                this.state.days[this.state.week][index] !== 0 ? (
+                  <PanelTime
+                    selected={item}
+                    key={
+                      this.state.days[this.state.week][index] +
+                      "-" +
+                      this.state.month +
+                      "-" +
+                      this.state.year
+                    }
+                  />
+                ) : (
+                  <div />
+                )
+            )}
+          </div>
         </div>
-      </div>
-    ));
+      )
+    );
+
+    //this.props.days[this.props.week][0]
 
     console.log("dataReserverRooms = ", this.dataReserverRooms);
     console.log("STATE (TableRoomReerve) = ", this.state);

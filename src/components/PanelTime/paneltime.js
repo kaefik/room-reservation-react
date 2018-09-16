@@ -13,14 +13,14 @@ class PanelTime extends Component {
           ? [
               undefined,
               undefined,
-              true,
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
-              true
+              undefined,
+              undefined
             ]
           : props.selected
     };
