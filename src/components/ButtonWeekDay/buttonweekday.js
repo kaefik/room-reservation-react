@@ -35,8 +35,6 @@ class ButtonWeekDay extends Component {
         <div className="buttonweekday-arrow" onClick={this.handleBackMonth}>
           &larr;
         </div>
-        {console.info(this.props.week)}
-        {console.info(this.props.days)}
         <div className="buttonweekday-day">
           {this.props.days[this.props.week][0]} Monday
         </div>

@@ -34,19 +34,12 @@ const generateMonth = (month, year) => {
 };
 
 class PanelWeekDay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      days: generateMonth(this.props.month + 1, this.props.year)
-    };
-  }
-
   onChangeMonth = newMonth => {
     this.setState({
       days: generateMonth(newMonth + 1, this.props.year)
     });
 
-    let newWeek = checkEmpltyMondayFriday(this.state.days[0]) ? 1 : 0;
+    let newWeek = checkEmpltyMondayFriday(this.props.days[0]) ? 1 : 0;
 
     this.props.onChange(newMonth, this.props.year, newWeek);
   };
@@ -57,7 +50,6 @@ class PanelWeekDay extends Component {
   };
 
   render() {
-    console.info("STATE PanelWeekDay = ", this.state);
     return (
       <div className="panelweekday">
         <ButtonMonth
@@ -68,7 +60,7 @@ class PanelWeekDay extends Component {
           month={this.props.month}
           year={this.props.year}
           week={this.props.week}
-          days={this.state.days}
+          days={this.props.days}
           onChangeWeek={this.onChangeWeek}
         />
       </div>
@@ -76,4 +68,4 @@ class PanelWeekDay extends Component {
   }
 }
 
-export default PanelWeekDay;
+export { PanelWeekDay, generateMonth };
