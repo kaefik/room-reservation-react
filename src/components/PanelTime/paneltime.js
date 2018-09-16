@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./paneltime.css";
 import ButtonTime from "../ButtonTime/buttontime";
-import { min } from "moment";
 
 //import DataReserve from "../../data/datareserve";
 
@@ -87,7 +86,7 @@ class PanelTime extends Component {
       />
     ));
     //console.log("timeArray = ", this.state.timeArray);
-    console.log("ID panelTime = ", this.props.id, this.props.room);
+    //console.log("ID panelTime = ", this.props.id, this.props.room);
     return (
       <div className="paneltime">
         <div className="paneltime-left">{buttonTimeItemsLeft}</div>
