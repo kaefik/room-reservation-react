@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./paneltime.css";
 import ButtonTime from "../ButtonTime/buttontime";
 
-import DataReserve from "../../data/datareserve";
+//import DataReserve from "../../data/datareserve";
 
 //let dataRoomReserver = require("../../data/test_data");
 import { createDataReserveObjFromSelectedArray } from "../../data/test_data";

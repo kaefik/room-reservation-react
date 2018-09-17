@@ -91,7 +91,7 @@ const generateSelectedVisibleWeekDays = function(
   ];
   // генерация из структуры занятых дней конкретных переговорок для отображения в видимой части данных
   let newSelectedVisibleWeekDays = selectedVisibleWeekDays;
-  let newSelectedRoom = [];
+  //let newSelectedRoom = [];
   dataReserverRooms.forEach((room, indexroom) => {
     //console.log("room = ", room);
     currentDays.forEach((dd, indexdd) => {

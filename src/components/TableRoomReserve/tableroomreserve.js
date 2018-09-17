@@ -95,6 +95,13 @@ class TableRoomReserve extends Component {
       this.state.year
     );
 
+    console.log("TableRoomReserve selectedWeekDays = ", selectedWeekDays);
+
+    console.log(
+      "this.state.days[this.state.week] = ",
+      this.state.days[this.state.week]
+    );
+
     // TODO: сделать сохранение состояние при изменении расписания бронирования переговорок
 
     const dataReserverRoomsRender = this.dataReserverRooms.map(
@@ -104,7 +111,7 @@ class TableRoomReserve extends Component {
           <div className="room-time">
             {selectedWeekDays[index].map(
               (item2, index2) =>
-                this.state.days[this.state.week][index] !== 0 ? (
+                this.state.days[this.state.week][index2] !== 0 ? (
                   <PanelTime
                     onChangeSelected={this.handleChangeSelected}
                     room={item.nameroom}
@@ -125,7 +132,7 @@ class TableRoomReserve extends Component {
                     ).toString()}
                   />
                 ) : (
-                  <div /> // TODO: сделать чтобы был пустой блок в полный размер обычного блока
+                  <div className="room-time-empty" key={index2} /> // TODO: сделать чтобы был пустой блок в полный размер обычного блока
                 )
             )}
           </div>
