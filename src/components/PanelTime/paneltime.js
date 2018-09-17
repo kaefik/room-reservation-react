@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import "./paneltime.css";
 import ButtonTime from "../ButtonTime/buttontime";
 
-//import DataReserve from "../../data/datareserve";
+import DataReserve from "../../data/datareserve";
 
 //let dataRoomReserver = require("../../data/test_data");
+import { createDataReserveObjFromSelectedArray } from "../../data/test_data";
 
 class PanelTime extends Component {
   timeArray = [
@@ -20,33 +21,17 @@ class PanelTime extends Component {
     ["18", "00"]
   ];
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected:
-        props.selected === undefined
-          ? [
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false,
-              false
-            ]
-          : props.selected
-    };
-  }
-
   setIndexSelectedinTime = (hour, minute, selected) => {
     this.timeArray.forEach((item, index) => {
       if (item[0] === hour && item[1] === minute) {
-        const newSelected = this.state.selected;
+        const newSelected = this.props.selected;
         newSelected[index] = selected;
-        this.setState({ selected: newSelected });
+        // +  TODO: вызвать колбэк для обновления данных выше по иерархии
+        this.props.onChangeSelected(
+          this.props.id,
+          newSelected,
+          this.props.room // здесь добавить массив объектов DataReserve
+        );
       }
     });
   };
@@ -59,7 +44,29 @@ class PanelTime extends Component {
       hour + ":" + minute,
       selected
     );
-    this.setIndexSelectedinTime(hour, minute, selected);
+    // создание массива объектов DataReserve по массиву selected
+    //this.setIndexSelectedinTime(hour, minute, selected);
+    const date = this.props.id;
+    const time = hour.toString() + ":" + minute.toString();
+    const descr = "нет описания"; // TOSO: реализовать ввод описания для резерва переговорки
+    const newSelectedEvent = createDataReserveObjFromSelectedArray(
+      date,
+      time,
+      descr,
+      selected
+    );
+
+    this.timeArray.forEach((item, index) => {
+      if (item[0] === hour && item[1] === minute) {
+        const newSelected = this.props.selected;
+        newSelected[index] = selected;
+        // +  TODO: вызвать колбэк для обновления данных выше по иерархии
+        this.props.onChangeSelected(
+          this.props.room,
+          newSelectedEvent // здесь добавить массив объектов DataReserve
+        );
+      }
+    });
   };
 
   render() {
@@ -71,7 +78,7 @@ class PanelTime extends Component {
       <ButtonTime
         hour={time[0]}
         minute={time[1]}
-        selected={this.state.selected[index]}
+        selected={this.props.selected[index]}
         key={index}
         onClick={this.handleClick}
       />
@@ -80,7 +87,7 @@ class PanelTime extends Component {
       <ButtonTime
         hour={time[0]}
         minute={time[1]}
-        selected={this.state.selected[5 + index]}
+        selected={this.props.selected[5 + index]}
         key={index}
         onClick={this.handleClick}
       />

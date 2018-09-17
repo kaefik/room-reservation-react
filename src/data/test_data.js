@@ -93,9 +93,9 @@ const generateSelectedVisibleWeekDays = function(
   let newSelectedVisibleWeekDays = selectedVisibleWeekDays;
   let newSelectedRoom = [];
   dataReserverRooms.forEach((room, indexroom) => {
-    console.log("room = ", room);
+    //console.log("room = ", room);
     currentDays.forEach((dd, indexdd) => {
-      console.log("dd = ", dd);
+      //console.log("dd = ", dd);
       const reserve = room.reserve;
       reserve.forEach(obj => {
         if (
@@ -104,7 +104,7 @@ const generateSelectedVisibleWeekDays = function(
           obj.month === currentMonth &&
           obj.day === dd
         ) {
-          console.log("filtered day ", obj.year, obj.month, dd);
+          //console.log("filtered day ", obj.year, obj.month, dd);
           timeArray.forEach((tt, indextt) => {
             if (obj.hour === tt[0] && obj.minutes === tt[1]) {
               newSelectedVisibleWeekDays[indexroom][indexdd][indextt] = true;
@@ -115,11 +115,29 @@ const generateSelectedVisibleWeekDays = function(
     });
   });
 
-  console.log("newSelectedRoom = ", newSelectedRoom);
+  //console.log("newSelectedRoom = ", newSelectedRoom);
 
-  console.log("newSelectedVisibleWeekDays = ", newSelectedVisibleWeekDays);
+  //console.log("newSelectedVisibleWeekDays = ", newSelectedVisibleWeekDays);
 
   return newSelectedVisibleWeekDays;
+};
+
+const createDataReserveObjFromSelectedArray = (date, time, descr, selected) => {
+  // создание объекта DataReserve в зависимости от значения selected
+  console.log(
+    "createDataReserveObjFromSelectedArray parameters = ",
+    date,
+    time,
+    descr,
+    selected
+  );
+  if (selected === false) {
+    // TODO: в дальнейшем если нужно будет обработать отмену бронирования переговорки,
+    //         то нужно будет тут изменить логику, а может быть и до вызова данной функции
+    return undefined;
+  }
+
+  return new DataReserve(date, time, descr);
 };
 
 const testSelectedWeekDays = [
@@ -253,5 +271,6 @@ export {
   dataRoomReservation,
   testSelectedWeekDays,
   createEmptySelectedVisibleWeekDays,
-  generateSelectedVisibleWeekDays
+  generateSelectedVisibleWeekDays,
+  createDataReserveObjFromSelectedArray
 };

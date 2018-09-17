@@ -59,6 +59,29 @@ class TableRoomReserve extends Component {
     }
   };
 
+  handleChangeSelected = (currentRoom, objDataReserve) => {
+    // события изменения которые произошли в дочернем теге PanelTime
+    // currentRoom - имя текущей комнаты
+    // currentDate - дата в котором поменялось в
+    console.log(
+      "TableRoomReserve handleChangeSelected = ",
+      currentRoom,
+      objDataReserve
+    );
+
+    //TODO: сделать сохранение полученного измененного состояния в this.dataReserverRooms
+    for (let index = 0; index < this.dataReserverRooms.length; index++) {
+      const element = this.dataReserverRooms[index];
+      if (element.nameroom === currentRoom) {
+        console.log("handleChangeSelected = ", element);
+        this.dataReserverRooms[index].reserve[
+          this.dataReserverRooms[index].reserve.length
+        ] = objDataReserve;
+      }
+    }
+    this.forceUpdate(); // TODO: не нравится что нужно насильно обновлять все элементы на экране.
+  };
+
   render() {
     const selectedWeekDays = createEmptySelectedVisibleWeekDays(
       this.dataReserverRooms.length
@@ -83,6 +106,7 @@ class TableRoomReserve extends Component {
               (item2, index2) =>
                 this.state.days[this.state.week][index] !== 0 ? (
                   <PanelTime
+                    onChangeSelected={this.handleChangeSelected}
                     room={item.nameroom}
                     selected={item2}
                     key={(
@@ -95,7 +119,7 @@ class TableRoomReserve extends Component {
                     id={(
                       this.state.days[this.state.week][index2] +
                       "-" +
-                      this.state.month +
+                      (parseInt(this.state.month, 10) + 1).toString() +
                       "-" +
                       this.state.year
                     ).toString()}
