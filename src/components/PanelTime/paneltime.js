@@ -2,27 +2,14 @@ import React, { Component } from "react";
 import "./paneltime.css";
 import ButtonTime from "../ButtonTime/buttontime";
 
-//import DataReserve from "../../data/datareserve";
-
-//let dataRoomReserver = require("../../data/test_data");
-import { createDataReserveObjFromSelectedArray } from "../../data/test_data";
+import {
+  createDataReserveObjFromSelectedArray,
+  timeArray
+} from "../../data/test_data";
 
 class PanelTime extends Component {
-  timeArray = [
-    ["09", "00"],
-    ["10", "00"],
-    ["11", "00"],
-    ["12", "00"],
-    ["13", "00"],
-    ["14", "00"],
-    ["15", "00"],
-    ["16", "00"],
-    ["17", "00"],
-    ["18", "00"]
-  ];
-
   setIndexSelectedinTime = (hour, minute, selected) => {
-    this.timeArray.forEach((item, index) => {
+    timeArray.forEach((item, index) => {
       if (item[0] === hour && item[1] === minute) {
         const newSelected = this.props.selected;
         newSelected[index] = selected;
@@ -45,10 +32,9 @@ class PanelTime extends Component {
       selected
     );
     // создание массива объектов DataReserve по массиву selected
-    //this.setIndexSelectedinTime(hour, minute, selected);
     const date = this.props.id;
     const time = hour.toString() + ":" + minute.toString();
-    const descr = "нет описания"; // TOSO: реализовать ввод описания для резерва переговорки
+    const descr = "нет описания"; // TODO: реализовать ввод описания для резерва переговорки
     const newSelectedEvent = createDataReserveObjFromSelectedArray(
       date,
       time,
@@ -56,7 +42,7 @@ class PanelTime extends Component {
       selected
     );
 
-    this.timeArray.forEach((item, index) => {
+    timeArray.forEach((item, index) => {
       if (item[0] === hour && item[1] === minute) {
         const newSelected = this.props.selected;
         newSelected[index] = selected;
@@ -71,9 +57,8 @@ class PanelTime extends Component {
 
   render() {
     //console.log("dataRoomReserver = ", dataRoomReserver);
-    //const timeArray = this.generateTimeArray();
-    const timeArrayLeft = this.timeArray.slice(0, 5);
-    const timeArrayRight = this.timeArray.slice(5);
+    const timeArrayLeft = timeArray.slice(0, 5);
+    const timeArrayRight = timeArray.slice(5);
     const buttonTimeItemsLeft = timeArrayLeft.map((time, index) => (
       <ButtonTime
         hour={time[0]}

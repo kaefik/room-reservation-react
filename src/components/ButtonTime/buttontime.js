@@ -11,7 +11,7 @@ class ButtonTime extends Component {
 
   render() {
     const { hour, minute } = this.props;
-    const selected = this.props.selected; // === undefined ? false : true;
+    const selected = this.props.selected;
     return (
       <div
         className={classNames("buttontime", {

@@ -32,18 +32,10 @@ const generateMonth = (month, year) => {
 
 class PanelWeekDay extends Component {
   onChangeMonth = newMonth => {
-    /*
-    this.setState({
-      days: generateMonth(newMonth + 1, this.props.year)
-    });*/
-
-    //let newWeek = checkEmpltyMondayFriday(this.props.days[0]) ? 1 : 0;
-
     this.props.onChange(newMonth, this.props.year, this.props.week);
   };
 
   onChangeWeek = newWeek => {
-    //this.setState({ week: newWeek });
     this.props.onChange(this.props.month, this.props.year, newWeek);
   };
 

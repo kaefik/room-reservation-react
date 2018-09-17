@@ -6,7 +6,6 @@ import PanelTime from "../PanelTime/paneltime";
 import "./tableroomreserve.css";
 import { checkEmpltyMondayFriday } from "../ButtonWeekDay/buttonweekday";
 
-//var dataReserverRooms = require("../../data/test_data");
 import {
   dataRoomReservation,
   createEmptySelectedVisibleWeekDays,
@@ -62,7 +61,8 @@ class TableRoomReserve extends Component {
   handleChangeSelected = (currentRoom, objDataReserve) => {
     // события изменения которые произошли в дочернем теге PanelTime
     // currentRoom - имя текущей комнаты
-    // currentDate - дата в котором поменялось в
+    // objDataReserve - объект типа DataReserve в котором содержится информация
+    // о новом резерве переговорки
     console.log(
       "TableRoomReserve handleChangeSelected = ",
       currentRoom,
@@ -77,6 +77,7 @@ class TableRoomReserve extends Component {
         this.dataReserverRooms[index].reserve[
           this.dataReserverRooms[index].reserve.length
         ] = objDataReserve;
+        //TODO: здесь сделать сохранение в localStorage
       }
     }
     this.forceUpdate(); // TODO: не нравится что нужно насильно обновлять все элементы на экране.
@@ -101,8 +102,6 @@ class TableRoomReserve extends Component {
       "this.state.days[this.state.week] = ",
       this.state.days[this.state.week]
     );
-
-    // TODO: сделать сохранение состояние при изменении расписания бронирования переговорок
 
     const dataReserverRoomsRender = this.dataReserverRooms.map(
       (item, index) => (
