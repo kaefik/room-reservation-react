@@ -41,6 +41,87 @@ let dataRoomReservation = [
 //console.log(dataRoomReservation);
 //console.log(dataRoom2);
 
+const createEmptySelectedVisibleWeekDays = function(countRoom) {
+  // создание пустой структуры для отображения на экране
+  if (countRoom <= 0) return [];
+  console.log("countRoom = ", countRoom);
+  let newSelected = new Array(countRoom);
+  //newSelected[0] = [];
+
+  for (let index = 0; index < newSelected.length; index++) {
+    newSelected[index] = [];
+    for (let index2 = 0; index2 < 5; index2++) {
+      newSelected[index][index2] = [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ];
+    }
+  }
+
+  console.log("newSelected = ", newSelected);
+  return newSelected;
+};
+
+const generateSelectedVisibleWeekDays = function(
+  dataReserverRooms,
+  selectedVisibleWeekDays,
+  currentDays,
+  currentMonth,
+  currentYear
+) {
+  let timeArray = [
+    ["09", "00"],
+    ["10", "00"],
+    ["11", "00"],
+    ["12", "00"],
+    ["13", "00"],
+    ["14", "00"],
+    ["15", "00"],
+    ["16", "00"],
+    ["17", "00"],
+    ["18", "00"]
+  ];
+  // генерация из структуры занятых дней конкретных переговорок для отображения в видимой части данных
+  let newSelectedVisibleWeekDays = selectedVisibleWeekDays;
+  let newSelectedRoom = [];
+  dataReserverRooms.forEach((room, indexroom) => {
+    console.log("room = ", room);
+    currentDays.forEach((dd, indexdd) => {
+      console.log("dd = ", dd);
+      const reserve = room.reserve;
+      reserve.forEach(obj => {
+        if (
+          // фильтрация даты
+          obj.year === currentYear &&
+          obj.month === currentMonth &&
+          obj.day === dd
+        ) {
+          console.log("filtered day ", obj.year, obj.month, dd);
+          timeArray.forEach((tt, indextt) => {
+            if (obj.hour === tt[0] && obj.minutes === tt[1]) {
+              newSelectedVisibleWeekDays[indexroom][indexdd][indextt] = true;
+            }
+          });
+        }
+      });
+    });
+  });
+
+  console.log("newSelectedRoom = ", newSelectedRoom);
+
+  console.log("newSelectedVisibleWeekDays = ", newSelectedVisibleWeekDays);
+
+  return newSelectedVisibleWeekDays;
+};
+
 const testSelectedWeekDays = [
   [
     [
@@ -168,4 +249,9 @@ const testSelectedWeekDays = [
   ]
 ];
 
-export { dataRoomReservation, testSelectedWeekDays };
+export {
+  dataRoomReservation,
+  testSelectedWeekDays,
+  createEmptySelectedVisibleWeekDays,
+  generateSelectedVisibleWeekDays
+};

@@ -26,16 +26,16 @@ class PanelTime extends Component {
       selected:
         props.selected === undefined
           ? [
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
             ]
           : props.selected
     };

@@ -9,7 +9,8 @@ import { checkEmpltyMondayFriday } from "../ButtonWeekDay/buttonweekday";
 //var dataReserverRooms = require("../../data/test_data");
 import {
   dataRoomReservation,
-  testSelectedWeekDays
+  createEmptySelectedVisibleWeekDays,
+  generateSelectedVisibleWeekDays
 } from "../../data/test_data";
 
 class TableRoomReserve extends Component {
@@ -58,91 +59,20 @@ class TableRoomReserve extends Component {
     }
   };
 
-  filteredWeekDays = (allWeekDays, currentDays, currentMonth, currentYear) => {
-    // фильтрует из структуры расписания когда и во сколько  заняты переговорки и
-    // генерация видимой части занято/незанято переговорка
-    var newSelectedWeekDays = Array(allWeekDays.length);
-    newSelectedWeekDays = newSelectedWeekDays.map(element => {
-      element.push([]);
-    });
-
-    console.log("Current Date = ", currentDays, currentMonth, currentYear);
-    allWeekDays.forEach((element, index1) => {
-      element.reserve.forEach((item, index2) => {
-        // фильтрация дат которые входят в текущие даты которые показываются на экране
-        //console.log("Item = ", item);
-        if (item.year === currentYear && item.month === currentMonth) {
-          // TODO: сделать фильрацию по числу дня
-          if (
-            currentDays.find(item1 => {
-              return item1 === item.day;
-            }) !== undefined
-          ) {
-            /*
-            console.log("filtered Item = ", item);
-            console.log("newSelectedWeekDays == ", newSelectedWeekDays);*/
-            if (newSelectedWeekDays[index1] === undefined) {
-              newSelectedWeekDays[index1] = [];
-            }
-            const len = newSelectedWeekDays[index1].length;
-            newSelectedWeekDays[index1][len] = item;
-          }
-        }
-      });
-    });
-    console.log("newSelectedWeekDays = ", newSelectedWeekDays);
-    return newSelectedWeekDays;
-  };
-
-  generateWeekDays = (allWeekDays, currentDays, currentMonth, currentYear) => {
-    // генерация видимой части занято/незанято переговорка
-    const timeArray = [
-      ["09", "00"],
-      ["10", "00"],
-      ["11", "00"],
-      ["12", "00"],
-      ["13", "00"],
-      ["14", "00"],
-      ["15", "00"],
-      ["16", "00"],
-      ["17", "00"],
-      ["18", "00"]
-    ];
-    let newSelected = [];
-    allWeekDays.forEach((element, index) => {
-      if (newSelected[index] === undefined) {
-        newSelected[index] = [];
-      }
-      currentDays.slice(0, 5).forEach((dd, index1) => {
-        timeArray.forEach((tt, index2) => {
-          if (newSelected[index][index1] === undefined) {
-            newSelected[index][index1] = [];
-          }
-          //TODO: сделать проверку на дату которая зарезервирована переговорка
-          newSelected[index][index1][index2] = undefined;
-        });
-      });
-    });
-
-    console.log("newSelected = ", newSelected);
-    return newSelected;
-  };
-
   render() {
-    //const selectedWeekDays = testSelectedWeekDays; // TODO: сгенирировать данную структуру используя this.dataReserverRooms
-    const filteredSelectedWeekDays = this.filteredWeekDays(
+    const selectedWeekDays = createEmptySelectedVisibleWeekDays(
+      this.dataReserverRooms.length
+    );
+
+    generateSelectedVisibleWeekDays(
       this.dataReserverRooms,
+      selectedWeekDays,
       this.state.days[this.state.week],
       this.state.month,
       this.state.year
     );
 
-    const selectedWeekDays = this.generateWeekDays(
-      filteredSelectedWeekDays,
-      this.state.days[this.state.week],
-      this.state.month,
-      this.state.year
-    );
+    // TODO: сделать сохранение состояние при изменении расписания бронирования переговорок
 
     const dataReserverRoomsRender = this.dataReserverRooms.map(
       (item, index) => (
