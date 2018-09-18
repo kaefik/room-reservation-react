@@ -9,7 +9,9 @@ import { checkEmpltyMondayFriday } from "../ButtonWeekDay/buttonweekday";
 import {
   dataRoomReservation,
   createEmptySelectedVisibleWeekDays,
-  generateSelectedVisibleWeekDays
+  generateSelectedVisibleWeekDays,
+  saveDataRoomReservationToLocalStorage,
+  loadDataRoomReservationFromLocalStorage
 } from "../../data/test_data";
 
 class TableRoomReserve extends Component {
@@ -23,8 +25,20 @@ class TableRoomReserve extends Component {
       days: []
     };
     this.state.days = generateMonth(this.state.month + 1, this.state.year);
-    this.dataReserverRooms = dataRoomReservation;
+    this.dataReserverRooms = loadDataRoomReservationFromLocalStorage();
+    /*
+    console.log(
+      "constructor this.dataReserverRooms  = ",
+      this.dataReserverRooms
+    );*/
+    if (this.dataReserverRooms === undefined) {
+      // если нет данных в localStorage, то загружаются данные по умолчанию для теста
+      this.dataReserverRooms = dataRoomReservation;
+    }
     this.state.week = checkEmpltyMondayFriday(this.state.days[0]) ? 1 : 0;
+
+    // тест для сохранения данных
+    //saveDataRoomReservationToLocalStorage(this.dataReserverRooms);
   }
 
   onChangeMonthWeek = (newmonth, newyear, newweek) => {
@@ -78,6 +92,7 @@ class TableRoomReserve extends Component {
           this.dataReserverRooms[index].reserve.length
         ] = objDataReserve;
         //TODO: здесь сделать сохранение в localStorage
+        saveDataRoomReservationToLocalStorage(this.dataReserverRooms);
       }
     }
     this.forceUpdate(); // TODO: не нравится что нужно насильно обновлять все элементы на экране.
@@ -96,12 +111,12 @@ class TableRoomReserve extends Component {
       this.state.year
     );
 
-    console.log("TableRoomReserve selectedWeekDays = ", selectedWeekDays);
-
+    //console.log("TableRoomReserve selectedWeekDays = ", selectedWeekDays);
+    /*
     console.log(
       "this.state.days[this.state.week] = ",
       this.state.days[this.state.week]
-    );
+    );*/
 
     const dataReserverRoomsRender = this.dataReserverRooms.map(
       (item, index) => (
@@ -139,8 +154,8 @@ class TableRoomReserve extends Component {
       )
     );
 
-    // console.log("dataReserverRooms = ", this.dataReserverRooms);
-    console.log("STATE (TableRoomReerve) = ", this.state);
+    console.log("dataReserverRooms = ", this.dataReserverRooms);
+    //console.log("STATE (TableRoomReerve) = ", this.state);
 
     return (
       <div className="table-room-reserve">
